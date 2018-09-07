@@ -1,0 +1,5 @@
+*.pyc
+jenkinsci
+.\__pycache__
+.vscode
+sshkeys/jenkinsci*

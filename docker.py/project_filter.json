@@ -1,0 +1,7 @@
+{
+    "white_list": [
+        "cs-.*-grpc-srv",
+        "cs-social.*-srv"
+    ],
+    "black_list": []
+}

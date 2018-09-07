@@ -1,0 +1,19 @@
+version: "3.3"
+services:
+  ci:
+    build:
+      context:  .
+      dockerfile: jenkins.dockerfile
+    ports:
+      - 8080:8080
+    env_file:
+      - docker-compose.ci.env
+    restart: always
+    network_mode: "bridge"
+    container_name: "ci"
+    volumes:
+      - ./docker.py:/root/pubtool
+      - ./jenkinsci/jenkins_home:/var/jenkins_home
+      - ./jenkinsci/nuget:/root/.nuget
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/docker:/usr/bin/docker
