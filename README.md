@@ -18,10 +18,10 @@
 - docker /docker-compose
 
 
-## [发展历程](~/docs/staging.md)
+## [发展历程](docs/staging.md)
 
 
-## [开始使用](~/docs/getting-start.md)
+## [开始使用](docs/getting-start.md)
 
 
 
