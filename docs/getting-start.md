@@ -24,12 +24,12 @@
 
 - 配置发布方式
 
-<img style="width:60%;"  src="docs/config_env.png"/>
+<img style="width:60%;"  src="config_env.png"/>
 
 
 - 配置git
 
-<img style="width:60%;"  src="docs/config_git.png"/>
+<img style="width:60%;"  src="config_git.png"/>
 
 - build shell
 
