@@ -19,29 +19,29 @@ def loadconfig(env):
     '''
     load config from system envs
     '''
-    if env not in ["dev","beta","prod"]:
+    if env not in ["DEV","BETA","PROD"]:
         raise Exception("unknow config [{}], only support[dev/beta/prod]".format(env))
 
     global portainer_host
-    portainer_host=getEnvValue(env,"portainer_host")
+    portainer_host=getEnvValue(env,"PORTAINER_HOST")
     
     global portainer_account
-    portainer_account=getEnvValue(env,"portainer_account")
+    portainer_account=getEnvValue(env,"PORTAINER_ACCOUNT")
     
     global portainer_password
-    portainer_password=getEnvValue(env,"portainer_password")
+    portainer_password=getEnvValue(env,"PORTAINER_PASSWORD")
     
     global dockerhub_domain
-    dockerhub_domain=getEnvValue(env,"dockerhub_domain")
+    dockerhub_domain=getEnvValue(env,"DOCKERHUB_DOMAIN")
     
     global dockerhub_group
-    dockerhub_group=getEnvValue(env,"dockerhub_group")
+    dockerhub_group=getEnvValue(env,"DOCKERHUB_GROUP")
     
     global docker_username
-    docker_username=getEnvValue(env,"docker_username")
+    docker_username=getEnvValue(env,"DOCKERHUB_USERNAME")
 
     global docker_password
-    docker_password=getEnvValue(env,"docker_password")
+    docker_password=getEnvValue(env,"DOCKERHUB_PASSWORD")
 
 if __name__ =="__main__":
     import sys
