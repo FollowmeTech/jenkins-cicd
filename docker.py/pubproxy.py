@@ -72,7 +72,7 @@ class PubProxy:
         querystring = {"name": self.container_name}
         port_setting = None
         if self.port:
-            ports = self.port.split(":")
+            ports = self.port.split(":")    #-p 6666:80
             port_setting = {
                 ports[1]+"/tcp": [{"HostIp": "", "HostPort": ports[0]}]
             }  # {"80/tcp":[{"HostIp":"","HostPort":"8585"}
@@ -80,6 +80,9 @@ class PubProxy:
         payload = {
             'Env': self.docker_env,
             'Image': self.full_docker_image,
+            'ExposedPorts':{
+                '{}/tcp'.format(ports[1]): {}   #80/tcp
+            },
             'HostConfig': {
                 'Binds': [
                     '/fmApplication/fmservice/{}/logs:/app/logs'.format(
