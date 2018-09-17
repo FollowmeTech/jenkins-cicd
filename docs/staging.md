@@ -63,8 +63,5 @@
 ![image](deploy.png) 
 
 
-## 有问题欢迎大家issue提问
 
-## demo地址:
-    todo
     

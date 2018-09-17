@@ -17,11 +17,15 @@
 - git-server
 - docker /docker-compose
 
-
 ## [发展历程](docs/staging.md)
 
+## 体验一下
+- 向 https://github.com/FollowmeTech/jenkins-cicd-practise 提交代码
+- 再登陆 https://ci.rileme.club 进行build发布 (root/123456)
+- 项目发布完成效果如下 http://ci.rileme.club:6666 
 
-## [开始使用](docs/getting-start.md)
+
+## [部署使用](docs/getting-start.md)
 
 
 
