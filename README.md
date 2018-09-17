@@ -21,7 +21,7 @@
 
 ## 体验一下
 - 向 https://github.com/FollowmeTech/jenkins-cicd-practise 提交代码
-- 再登陆 https://ci.rileme.club 进行build发布 (root/123456)
+- 再登陆 https://ci.rileme.club 进行build发布 (play/123456)
 - 项目发布完成效果如下 http://ci.rileme.club:6666 
 
 
