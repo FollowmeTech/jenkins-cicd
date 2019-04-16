@@ -1,4 +1,4 @@
-version: "3.3"
+version: "3"
 services:
   ci:
     build:
@@ -6,14 +6,42 @@ services:
       dockerfile: jenkins.dockerfile
     ports:
       - 8080:8080
+      - 50000:50000
     env_file:
       - docker-compose.ci.env
     restart: always
-    network_mode: "bridge"
+    networks: 
+      - backend
+      - frontend
     container_name: "ci"
     volumes:
       - ./docker.py:/root/pubtool
-      - ./jenkinsci/jenkins_home:/var/jenkins_home
-      - ./jenkinsci/nuget:/root/.nuget
+      - data:/var/jenkins_home
       - /var/run/docker.sock:/var/run/docker.sock
       - /usr/bin/docker:/usr/bin/docker
+      - /usr/bin/docker-compose:/usr/bin/docker-compose
+  
+  web:
+    image: yunfandev/nginx
+    ports:
+      - 80:80
+      - 443:443
+    restart: always
+    networks: 
+      - backend
+      - frontend
+    container_name: "nginx"
+    volumes:
+      - /etc/nginx/conf.d:/etc/nginx/conf.d/
+      - /var/ssl:/var/ssl/
+      - /var/log/nginx:/var/log/nginx/
+      - /var/websites:/var/websites/
+
+volumes:
+  data:
+  
+networks:
+  backend:
+  frontend:
+    external:
+      name: app
