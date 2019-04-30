@@ -12,9 +12,6 @@ import time
 import config
 
 class PubProxy:
-
-    _max_retry = 3
-
     def __init__(self, deploy_channel, node, container_name, docker_image, net, ports, volumes, docker_envs, mode, compose_file, stack_name):
         '''
         deploy_channel : 部署环境，dev/testing/staging/prod
