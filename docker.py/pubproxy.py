@@ -12,8 +12,7 @@ import time
 import config
 
 class PubProxy:
-
-    def __init__(self, deploy_channel, node, container_name, docker_image, net, ports, docker_envs, mode, compose_file, stack_name):
+    def __init__(self, deploy_channel, node, container_name, docker_image, net, ports, volumes, docker_envs, mode, compose_file, stack_name):
         '''
         deploy_channel : 部署环境，dev/testing/staging/prod
         node: 表示node在portainer中的index,例如1/2/3/4
@@ -40,6 +39,7 @@ class PubProxy:
             self.config.dockerhub_domain, self.config.dockerhub_group, docker_image)
         self.net = net
         self.ports = ports
+        self.volumes = volumes
         self.mode = mode
         if compose_file:
             self.compose_file= base64.b64decode(compose_file)
@@ -103,13 +103,17 @@ class PubProxy:
                     { 'HostPort': pubPort}
                 ]
 
+        binds = []
+        if len(self.volumes):
+            for volume in self.volumes:
+                binds.append(volume)
+
         payload = {
             'Env': self.docker_envs,
             'Image': self.full_docker_image,
             'ExposedPorts': exposedPorts,
             'HostConfig': {
-                'Binds': [
-                ],
+                'Binds': binds,
                 'NetworkMode': self.net,
                 'PortBindings': portBindings,
                 'RestartPolicy': {
@@ -385,10 +389,3 @@ class PubProxy:
         headers={'authorization': self.token_portainer}
         response=requests.request('GET',url, headers=headers)
         print(response.text)
-
-if __name__ == '__main__':
-    import sys
-    env=sys.argv[1:]
-    print(env)
-    p =PubProxy(env[0],1,'x','x','host',9090,'en:13','portainer','','')
-    p.print_endpoints()

@@ -11,25 +11,27 @@ def main(argv):
     node = None
     container_name = None
     docker_image = None
+    volumes = []
     net = 'bridge'  # 默认网络模式
     ports = []
     mode = 'default'  # default or swarm
     compose_file = None
     stack_name = None
 
-    usage = 'Usage: main.py --channel=DEV \
-                --env="ASPNETCORE_ENVIRONMENT=Development" \
-                --env="ASPNETCORE_ENDPOINT=192.168.8.11" \
+    usage = 'Usage: main.py --deploy_channel=DEV \
+                --docker_env="ASPNETCORE_ENVIRONMENT=Development" \
+                --docker_env="ASPNETCORE_ENDPOINT=192.168.8.11" \
                 --node=1 \
                 --container_name=cs-trader-grpc-srv \
                 --docker_image=cs-trader-grpc-srv:v3.1.8.180717091123 \
                 --net=host \
+                --v=source:target \
                 --port=8585:80'
 
     try:
         opts, args = getopt.getopt(argv,
-                                   'c:n:cn:i:p:e:m:f',
-                                   ['deploy_channel=', 'channel=', 'docker_env=', 'env=', 'node=', 'container_name=', 'docker_image=', 'image=', 'net=', 'port=', 'mode=', 'file=', 'stack='])
+                                   'c:n:cn:i:p:e:m:f:v',
+                                   ['deploy_channel=', 'channel=', 'docker_env=', 'env=', 'node=', 'container_name=', 'docker_image=', 'image=', 'net=', 'port=', 'mode=', 'file=', 'stack=', 'volume='])
     except getopt.GetoptError as er:
         print(er)
         print(usage)
@@ -57,13 +59,16 @@ def main(argv):
             compose_file = arg
         elif opt in('--stack'):
             stack_name = arg
+        elif opt in('-v', '--volume'):
+            volumes.append(str.strip(arg))
+
 
     #filter the prod pub list
     if deploy_channel.lower() == 'prod':
         filter.filter(container=container_name, stack_compose=compose_file)
 
     proxy = pubproxy.PubProxy(
-        deploy_channel, node, container_name, docker_image, net, ports, docker_envs, mode, compose_file, stack_name)
+        deploy_channel, node, container_name, docker_image, net, ports, volumes, docker_envs, mode, compose_file, stack_name)
 
     if(mode == 'swarm'):
         proxy.publish_stack()
